@@ -21,32 +21,11 @@ class DatabaseSeeder extends Seeder
         Category::truncate();
         Blog::truncate();
 
-        User::factory()->create();
+        $frontend=Category::factory()->create(['name'=> "frontend"]);
+        $backend=Category::factory()->create(['name'=> "backend"]);
 
-        $frontend=Category::create([
-            'name'  => 'frontend',
-            'slug'  => 'frontend'
-        ]);
-
-        $backend=Category::create([
-            'name'  => 'backend',
-            'slug'  => 'backend'
-        ]);
-
-        Blog::create([
-            'title' => "frontend post",
-            'slug'  => "frontend-post",
-            'intro' => "this is intro",
-            'body'  => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            'category_id'=>$frontend->id,
-        ]);
-
-        Blog::create([
-            'title' => "backend post",
-            'slug'  => "backend-post",
-            'intro' => "this is intro",
-            'body'  => "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book",
-            'category_id'=>$backend->id,
-        ]);
+        Blog::factory(2)->create(['category_id'=>$frontend->id]);
+        Blog::factory(2)->create(['category_id'=>$backend->id]);
     }
+
 }
