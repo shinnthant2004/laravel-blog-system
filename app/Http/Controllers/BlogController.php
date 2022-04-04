@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\Category;
+use App\Models\Comment;
 use Illuminate\Http\Request;
 
 class BlogController extends Controller
@@ -18,7 +19,8 @@ class BlogController extends Controller
    public function show (Blog $blog) {
     return view('blogs.show',[
      "blog" => $blog,
-     "randomBlogs"=>Blog::inRandomOrder()->take(3)->get()
+     "randomBlogs"=>Blog::inRandomOrder()->take(3)->get(),
+     "comments"=>Comment::latest()->get()
     ]);
     }
 }
