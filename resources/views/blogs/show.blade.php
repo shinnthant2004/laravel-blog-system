@@ -13,6 +13,11 @@
                 <div>{{ $blog->author->name }}</div>
                 <div class="badge bg-primary">{{ $blog->category->name }}</div>
                 <div class="text-secondary">{{ $blog->created_at->diffForHumans() }}</div>
+                @if (auth()->user()->isSubscribed($blog))
+                <button class="btn btn-danger">Unsubscribe</button>
+                @else
+                <button class="btn btn-warning">Subscribe</button>
+                @endif
             </div>
             <p class="lh-md mt-3">
               {{ $blog->body }}
@@ -21,8 +26,21 @@
         </div>
       </div>
 
-      <x-subscribe></x-subscribe>
-      <x-comments :comments="$blog->comments"/>
+
+
+      <section class="container">
+          <div class="col-md-8  mx-auto">
+          @auth
+        <x-comment-form :blog='$blog'/>
+          @else
+          <p class="text-danger">Please <a href="/login">Login</a> to participate in communication</p>
+          @endauth
+          </div>
+      </section>
+
+      @if ($blog->comments->count())
+      <x-comments :comments="$blog->comments()->latest()->paginate(3)"/>
+      @endif
       <x-blogs_you_may_like_section :randomBlogs="$randomBlogs"></x-blogs_you_may_like_section>
 
 </x-layout>

@@ -10,7 +10,6 @@ class Blog extends Model
 {
 
     use HasFactory;
-    protected $guarded=['id'];
 
     protected $with=['category','author'];
 
@@ -24,7 +23,9 @@ class Blog extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     }
-
+    public function subscribers(){
+        return $this->belongsToMany(User::class);
+    }
     public function scopeFilter($query,$filter){
         $query->when($filter['search'] ?? false,function  ($query,$search){
            $query->where(function ($query) use ($search) {
