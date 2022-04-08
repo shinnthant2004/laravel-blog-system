@@ -26,6 +26,12 @@ class Blog extends Model
     public function subscribers(){
         return $this->belongsToMany(User::class);
     }
+    public function unSubscribe(){
+        $this->subscribers()->detach(auth()->id());
+    }
+    public function Subscribe(){
+        $this->subscribers()->attach(auth()->id());
+    }
     public function scopeFilter($query,$filter){
         $query->when($filter['search'] ?? false,function  ($query,$search){
            $query->where(function ($query) use ($search) {
