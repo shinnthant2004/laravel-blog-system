@@ -8,7 +8,7 @@ use App\Models\Category;
 use App\Models\Comment;
 use App\Models\User;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\Rule;
 
 class BlogController extends Controller
 {
@@ -33,5 +33,24 @@ class BlogController extends Controller
         $blog->Subscribe();
       }
       return back();
+    }
+
+    public function create(){
+       return view('blogs.create',[
+           'categories'=>Category::all()
+       ]);
+    }
+    public function store(){
+      $formData=request()->validate([
+          'title'=>['required'],
+          'slug'=>['required',Rule::unique('blogs','slug')],
+          'intro'=>['required'],
+          'body'=>['required'],
+          'category_id'=>['required',Rule::exists('categories','id')]
+      ]);
+      $formData['user_id']=auth()->id();
+      $formData['thumbnail']=request()->file('thumbnail')->store('thumbnail');
+      Blog::create($formData);
+      return redirect('/');
     }
 }
