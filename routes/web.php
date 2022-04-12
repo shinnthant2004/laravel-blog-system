@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminBlogController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CommentController;
@@ -34,5 +35,8 @@ Route::post('/login',[AuthController::class,'post_login'])->middleware('guest');
 
 Route::post('/blogs/{blog:slug}/subscription',[BlogController::class,'subscriptionHandler']);
 
-Route::get('/admin/blogs/create',[BlogController::class,'create'])->middleware('admin');
-Route::post('/admin/blogs/create',[BlogController::class,'store'])->middleware('admin');
+Route::get('/admin/blogs',[AdminBlogController::class,'index'])->middleware('admin');
+Route::get('/admin/blogs/create',[AdminBlogController::class,'create'])->middleware('admin');
+Route::post('/admin/blogs/create',[AdminBlogController::class,'store'])->middleware('admin');
+Route::delete('/admin/blogs/{blog:slug}/delete',[AdminBlogController::class,'destroy'])->middleware('admin');
+
