@@ -11,14 +11,14 @@ class AdminBlogController extends Controller
 {
     public function index(){
     return view('admin.blogs.index',[
-        'blogs'=>Blog::latest()->paginate(1)
+        'blogs'=>Blog::latest()->paginate(3)
     ]);
     }
     public function create(){
-        return view('blogs.create',[
+        return view('admin.blogs.create',[
             'categories'=>Category::all()
         ]);
-     }
+    }
      public function store(){
        $formData=request()->validate([
            'title'=>['required'],
@@ -31,9 +31,15 @@ class AdminBlogController extends Controller
        $formData['thumbnail']=request()->file('thumbnail')->store('thumbnail');
        Blog::create($formData);
        return redirect('/');
-     }
+    }
      public function destroy(Blog $blog){
         $blog->delete();
         return back();
-     }
+    }
+    public function edit(Blog $blog){
+        return view('admin.blogs.edit',[
+            'blog'=>$blog,
+            'categories'=>Category::all()
+        ]);
+    }
 }

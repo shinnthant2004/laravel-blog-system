@@ -12,7 +12,7 @@
         </div>
         <div class="ms-3">
             <h6>{{ $comment->author->name }}</h6>
-            <p class="text-secondary">{{ $comment->created_at->format('l jS \of F Y h:i:s A') }}</p>
+            <p class="text-secondary">{{ $comment->created_at }}</p>
         </div>
     </div>
     <p class="mt-1">

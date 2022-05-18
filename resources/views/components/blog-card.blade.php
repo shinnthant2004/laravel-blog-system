@@ -2,6 +2,7 @@
 
 <div class="card">
     <img
+      style="height:175px!important"
       src="/storage/{{ $blog->thumbnail }}"
       class="card-img-top"
       alt="..."

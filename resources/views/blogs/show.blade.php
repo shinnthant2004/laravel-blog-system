@@ -3,11 +3,13 @@
     <div class="container">
         <div class="row">
           <div class="col-md-6 mx-auto text-center">
-            <img
+            <div class="mt-4">
+                <img
               src="/storage/{{ $blog->thumbnail }}"
               class="card-img-top"
               alt="..."
             />
+            </div>
             <h3 class="my-3">{{ $blog->title }}</h3>
             <div>
                 <div>{{ $blog->author->name }}</div>
