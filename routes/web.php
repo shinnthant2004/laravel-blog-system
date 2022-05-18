@@ -40,4 +40,5 @@ Route::get('/admin/blogs/create',[AdminBlogController::class,'create'])->middlew
 Route::post('/admin/blogs/create',[AdminBlogController::class,'store'])->middleware('admin');
 Route::delete('/admin/blogs/{blog:slug}/delete',[AdminBlogController::class,'destroy'])->middleware('admin');
 Route::get('/admin/blogs/{blog:slug}/edit',[AdminBlogController::class,'edit'])->middleware('admin');
+Route::patch('/admin/blogs/{blog:slug}/update',[AdminBlogController::class,'update'])->middleware('admin');
 

@@ -2,7 +2,8 @@
     <h3 class="text-center my-3">Admin Edit Form</h3>
 
         <x-card-wrapper>
-            <form  enctype="multipart/form-data" method="POST" action="/admin/blogs/edit">
+            <form  enctype="multipart/form-data" method="POST" action="/admin/blogs/{{ $blog->slug }}/update">
+                @method('patch')
             @csrf
                  <x-form.input name="title" value="{{ $blog->title }}"></x-form.input>
 
