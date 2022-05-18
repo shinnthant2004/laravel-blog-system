@@ -9,6 +9,9 @@
 
         <a href="/login" class="nav-link">Login</a>
         @else
+        @can('admin')
+        <a href="/admin/blogs" class="nav-link">Dashboard</a>
+        @endcan
         <img src="{{ auth()->user()->avatar }}"
         width="50"
         height="50"
